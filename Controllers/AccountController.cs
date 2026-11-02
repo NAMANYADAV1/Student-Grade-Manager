@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentGradeManager.Models;
 using StudentGradeManager.Services;
 
@@ -34,6 +35,7 @@ public class AccountController(
             return View(model);
         }
 
+        var isFirstRegisteredAccount = !await userManager.Users.AnyAsync();
         var user = new ApplicationUser
         {
             UserName = model.Email,
@@ -50,7 +52,7 @@ public class AccountController(
             return View(model);
         }
 
-        await gradeStore.ClaimLegacyEntriesAsync(user.Id);
+        await gradeStore.ClaimLegacyEntriesAsync(user.Id, isFirstRegisteredAccount);
         await signInManager.SignInAsync(user, isPersistent: false);
         return RedirectToAction("Index", "Students");
     }

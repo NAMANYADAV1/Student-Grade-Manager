@@ -61,8 +61,13 @@ public class GradeStore(GradeDbContext dbContext)
         return true;
     }
 
-    public async Task ClaimLegacyEntriesAsync(string ownerId)
+    public async Task ClaimLegacyEntriesAsync(string ownerId, bool isFirstRegisteredAccount = true)
     {
+        if (!isFirstRegisteredAccount)
+        {
+            return;
+        }
+
         await dbContext.GradeEntries
             .Where(entry => entry.OwnerId == null)
             .ExecuteUpdateAsync(update => update.SetProperty(entry => entry.OwnerId, ownerId));
