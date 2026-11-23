@@ -2,15 +2,7 @@
 
 A web app for managing **students**, **courses** and **enrollments** in one place. It has an Angular frontend, a .NET 10 Web API backend and a MySQL database, with secure JWT login.
 
-## Screenshots
 
-| Sign in | Overview |
-|---|---|
-| ![Login](screenshots/login.png) | ![Overview](screenshots/overview.png) |
-
-| Students | Enrollments |
-|---|---|
-| ![Students](screenshots/students.png) | ![Enrollments](screenshots/enroll.png) |
 
 ## Features
 
